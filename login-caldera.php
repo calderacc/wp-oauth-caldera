@@ -117,22 +117,22 @@ function get_oauth_token($wpoa) {
 			}
 			break;
 	}
-	// parse the result:
-	parse_str($result, $result_obj); // PROVIDER SPECIFIC: Github encodes the access token result as a querystring by default
-	$access_token = $result_obj['access_token']; // PROVIDER SPECIFIC: this is how Github returns the access token KEEP THIS PROTECTED!
-	//$expires_in = $result_obj['expires_in']; // PROVIDER SPECIFIC: Github does not return an access token expiration!
-	//$expires_at = time() + $expires_in; // PROVIDER SPECIFIC: Github does not return an access token expiration!
-	// handle the result:
-	if (!$access_token) {
-		// malformed access token result detected:
-		$wpoa->wpoa_end_login("Sorry, we couldn't log you in. Malformed access token result detected. Please notify the admin or try again later.");
-	}
-	else {
-		$_SESSION['WPOA']['ACCESS_TOKEN'] = $access_token;
-		//$_SESSION['WPOA']['EXPIRES_IN'] = $expires_in; // PROVIDER SPECIFIC: Github does not return an access token expiration!
-		//$_SESSION['WPOA']['EXPIRES_AT'] = $expires_at; // PROVIDER SPECIFIC: Github does not return an access token expiration!
-		return true;
-	}
+    $result_obj = json_decode($result);
+
+    $access_token = $result_obj->access_token;
+    $expires_in = $result_obj->expires_in;
+    $expires_at = time() + $expires_in;
+
+    if (!$access_token) {
+        // malformed access token result detected:
+        $wpoa->wpoa_end_login("Sorry, we couldn't log you in. Malformed access token result detected. Please notify the admin or try again later.");
+    }
+    else {
+        $_SESSION['WPOA']['ACCESS_TOKEN'] = $access_token;
+        $_SESSION['WPOA']['EXPIRES_IN'] = $expires_in;
+        $_SESSION['WPOA']['EXPIRES_AT'] = $expires_at;
+        return true;
+    }
 }
 
 function get_oauth_identity($wpoa) {
