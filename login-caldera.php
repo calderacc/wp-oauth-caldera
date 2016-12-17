@@ -10,7 +10,7 @@ define('CLIENT_ENABLED', get_option('wpoa_caldera_api_enabled'));
 define('CLIENT_ID', get_option('wpoa_caldera_api_id'));
 define('CLIENT_SECRET', get_option('wpoa_caldera_api_secret'));
 define('REDIRECT_URI', rtrim(site_url(), '/') . '/');
-define('SCOPE', 'user'); // PROVIDER SPECIFIC: "user" is the minimum scope required to get the user's id from Caldera
+define('SCOPE', ''); // PROVIDER SPECIFIC: "user" is the minimum scope required to get the user's id from Caldera
 define('URL_AUTH', "https://members.caldera.cc/oauth/v2/auth?");
 define('URL_TOKEN', "https://members.caldera.cc/oauth/v2/token?");
 define('URL_USER', "https://members.caldera.cc/user?");
