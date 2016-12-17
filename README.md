@@ -1,5 +1,19 @@
 ## Installation
 
+### Step 1
+
+Place `login-caldera.php` into plugin directory.
+
+### Step 2
+
+Add these lines into the configuration of `wp-oauth.php`:
+
+		'wpoa_caldera_api_enabled' => 0,								// 0, 1
+		'wpoa_caldera_api_id' => '',									// any string
+		'wpoa_caldera_api_secret' => '',								// any string
+		
+### Step 3
+
 Place this snippet in `wp-oauth-settings.php`:
 
 			<!-- START Login with Caldera section -->
@@ -32,3 +46,9 @@ Place this snippet in `wp-oauth-settings.php`:
 			</div> <!-- .form-padding -->
 			</div> <!-- .wpoa-settings-section -->
 			<!-- END Login with Caldera section -->
+
+### Step 4
+
+Open `wp-oauth.php` and insert around line 710:
+
+		$html .= $this->wpoa_login_button("caldera", "Caldera", $atts);
